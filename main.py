@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from datetime import date, datetime
 from typing import Dict, Optional
 
 app = FastAPI()
@@ -13,6 +14,7 @@ class Usuario(BaseModel):
     log_cpf: Optional[int]
     log_cep: Optional[int]
     log_telefone: Optional[int]
+    log_datanasc: Optional[datetime.date]
 
 # Simulação de armazenamento de dados
 db: Dict[int, Usuario] = {}
