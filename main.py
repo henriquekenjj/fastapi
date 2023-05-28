@@ -1,27 +1,48 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from typing import Dict, Optional
 
 app = FastAPI()
 
-class Msg(BaseModel):
-    msg: str
+# Modelo de dados
+class Usuario(BaseModel):
+    log_id: int
+    log_nome: str
+    log_email: str
+    log_senha: str
+    log_cpf: Optional[int]
+    log_cep: Optional[int]
+    log_telefone: Optional[int]
 
+# Simulação de armazenamento de dados
+db: Dict[int, Usuario] = {}
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World. Welcome to FastAPI!"}
+# Operação Create
+@app.post("/usuarios/")
+async def create_usuario(usuario: Usuario):
+    db[usuario.log_id] = usuario
+    return {"message": "Usuário criado"}
 
+# Operação Read
+@app.get("/usuarios/{usuario_log_id}")
+async def read_usuario(usuario_log_id: int):
+    usuario = db.get(usuario_log_id)
+    if usuario:
+        return usuario
+    return {"message": "Usuário não encontrado"}
 
-@app.get("/path")
-async def demo_get():
-    return {"message": "This is /path endpoint, use a post request to transform the text to uppercase"}
+# Operação Update
+@app.put("/usuarios/{usuario_log_id}")
+async def update_usuario(usuario_log_id: int, usuario: Usuario):
+    if usuario_log_id in db:
+        db[usuario_log_id] = usuario
+        return {"message": "Usuário atualizado"}
+    return {"message": "Usuário não encontrado"}
 
-
-@app.post("/path")
-async def demo_post(inp: Msg):
-    return {"message": inp.msg.upper()}
-
-
-@app.get("/path/{path_id}")
-async def demo_get_path_id(path_id: int):
-    return {"message": f"This is /path/{path_id} endpoint, use post request to retrieve result"}
+# Operação Delete
+@app.delete("/usuarios/{usuario_log_id}")
+async def delete_usuario(usuario_log_id: int):
+    if usuario_log_id in db:
+        del db[usuario_log_id]
+        return {"message": "Usuário excluído"}
+    return {"message": "Usuário não encontrado"}
