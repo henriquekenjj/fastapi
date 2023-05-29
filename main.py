@@ -18,7 +18,7 @@ app.add_middleware(
 
 # Modelo de dados
 class Usuario(BaseModel):
-    log_id: int
+    log_id: Optional[int]
     log_nome: str
     log_email: str
     log_senha: str
@@ -28,6 +28,7 @@ class Usuario(BaseModel):
 
 # Simulação de armazenamento de dados de usuários
 db_usuarios: Dict[int, Usuario] = {}
+next_usuario_id = 1
 
 # Modelo de dados
 class Produto(BaseModel):
@@ -45,7 +46,10 @@ db_produtos: Dict[int, Produto] = {}
 # Operação Create
 @app.post("/usuarios/")
 async def create_usuario(usuario: Usuario):
-    db_usuarios[usuario.log_id] = usuario
+    global next_usuario_id
+    usuario.log_id = next_usuario_id
+    db_usuarios[next_usuario_id] = usuario
+    next_usuario_id += 1
     return {"message": "Usuário criado"}
 
 # Operação Read
