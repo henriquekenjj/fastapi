@@ -24,6 +24,7 @@ class Produto(BaseModel):
     prod_nome: str
     prod_descr: str
     prod_preco: float
+    prod_img: str
 
 # Simulação de armazenamento de dados
 db: Dict[int, Produto] = {}
