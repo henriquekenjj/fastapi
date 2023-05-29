@@ -19,16 +19,17 @@ class Usuario(BaseModel):
 db: Dict[int, Usuario] = {}
 
 # Modelo de dados
-class Produtos(BaseModel):
+class Produto(BaseModel):
     prod_id: int
     prod_nome: str
     prod_descr: str
     prod_preco: float
 
 # Simulação de armazenamento de dados
-db: Dict[int, Produtos] = {}
+db: Dict[int, Produto] = {}
 
-    
+#CRUD Usuario 
+
 # Operação Create
 @app.post("/usuarios/")
 async def create_usuario(usuario: Usuario):
@@ -59,7 +60,9 @@ async def delete_usuario(usuario_log_id: int):
         return {"message": "Usuário excluído"}
     return {"message": "Usuário não encontrado"}
 
-# Operação Create
+# CRUD Produto
+
+# Operação Create 
 @app.post("/produtos/")
 async def create_produto(produto: Produto):
     db[produto.log_id] = produto
