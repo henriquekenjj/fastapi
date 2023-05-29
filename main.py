@@ -66,7 +66,7 @@ async def delete_usuario(usuario_log_id: int):
 @app.post("/produtos/")
 async def create_produto(produto: Produto):
     db[produto.log_id] = produto
-    return {"message": "Usuário criado"}
+    return {"message": "Produto criado"}
 
 # Operação Read
 @app.get("/produtos/{produto_prod_id}")
@@ -74,20 +74,20 @@ async def read_produto(produto_prod_id: int):
     produto = db.get(produto_prod_id)
     if produto:
         return produto
-    return {"message": "Usuário não encontrado"}
+    return {"message": "Produto não encontrado"}
 
 # Operação Update
 @app.put("/produtos/{produto_prod_id}")
 async def update_produto(produto_prod_id: int, produto: Produto):
     if produto_prod_id in db:
         db[produto_prod_id] = produto
-        return {"message": "Usuário atualizado"}
-    return {"message": "Usuário não encontrado"}
+        return {"message": "Produto atualizado"}
+    return {"message": "Produto não encontrado"}
 
 # Operação Delete
 @app.delete("/produtos/{produto_prod_id}")
 async def delete_produto(produto_prod_id: int):
     if produto_prod_id in db:
         del db[produto_prod_id]
-        return {"message": "Usuário excluído"}
-    return {"message": "Usuário não encontrado"}
+        return {"message": "Produto excluído"}
+    return {"message": "Produto não encontrado"}
