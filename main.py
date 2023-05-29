@@ -25,7 +25,6 @@ class Usuario(BaseModel):
     log_cpf: int
     log_cep: int
     log_telefone: int
-    log_datanasc: str
 
 # Simulação de armazenamento de dados de usuários
 db_usuarios: Dict[int, Usuario] = {}
