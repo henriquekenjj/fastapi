@@ -10,10 +10,10 @@ class Usuario(BaseModel):
     log_nome: str
     log_email: str
     log_senha: str
-    log_cpf: Optional[int]
-    log_cep: Optional[int]
-    log_telefone: Optional[int]
-    log_datanasc: Optional[str]
+    log_cpf: int
+    log_cep: int
+    log_telefone: int
+    log_datanasc: str
 
 # Simulação de armazenamento de dados de usuários
 db_usuarios: Dict[int, Usuario] = {}
