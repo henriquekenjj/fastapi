@@ -15,8 +15,8 @@ class Usuario(BaseModel):
     log_telefone: Optional[int]
     log_datanasc: Optional[str]
 
-# Simulação de armazenamento de dados
-db: Dict[int, Usuario] = {}
+# Simulação de armazenamento de dados de usuários
+db_usuarios: Dict[int, Usuario] = {}
 
 # Modelo de dados
 class Produto(BaseModel):
@@ -26,21 +26,21 @@ class Produto(BaseModel):
     prod_preco: float
     prod_img: str
 
-# Simulação de armazenamento de dados
-db: Dict[int, Produto] = {}
+# Simulação de armazenamento de dados de produtos
+db_produtos: Dict[int, Produto] = {}
 
-#CRUD Usuario 
+# CRUD Usuario 
 
 # Operação Create
 @app.post("/usuarios/")
 async def create_usuario(usuario: Usuario):
-    db[usuario.log_id] = usuario
+    db_usuarios[usuario.log_id] = usuario
     return {"message": "Usuário criado"}
 
 # Operação Read
 @app.get("/usuarios/{usuario_log_id}")
 async def read_usuario(usuario_log_id: int):
-    usuario = db.get(usuario_log_id)
+    usuario = db_usuarios.get(usuario_log_id)
     if usuario:
         return usuario
     return {"message": "Usuário não encontrado"}
@@ -48,16 +48,16 @@ async def read_usuario(usuario_log_id: int):
 # Operação Update
 @app.put("/usuarios/{usuario_log_id}")
 async def update_usuario(usuario_log_id: int, usuario: Usuario):
-    if usuario_log_id in db:
-        db[usuario_log_id] = usuario
+    if usuario_log_id in db_usuarios:
+        db_usuarios[usuario_log_id] = usuario
         return {"message": "Usuário atualizado"}
     return {"message": "Usuário não encontrado"}
 
 # Operação Delete
 @app.delete("/usuarios/{usuario_log_id}")
 async def delete_usuario(usuario_log_id: int):
-    if usuario_log_id in db:
-        del db[usuario_log_id]
+    if usuario_log_id in db_usuarios:
+        del db_usuarios[usuario_log_id]
         return {"message": "Usuário excluído"}
     return {"message": "Usuário não encontrado"}
 
@@ -66,13 +66,13 @@ async def delete_usuario(usuario_log_id: int):
 # Operação Create 
 @app.post("/produtos/")
 async def create_produto(produto: Produto):
-    db[produto.log_id] = produto
+    db_produtos[produto.prod_id] = produto
     return {"message": "Produto criado"}
 
 # Operação Read
 @app.get("/produtos/{produto_prod_id}")
 async def read_produto(produto_prod_id: int):
-    produto = db.get(produto_prod_id)
+    produto = db_produtos.get(produto_prod_id)
     if produto:
         return produto
     return {"message": "Produto não encontrado"}
@@ -80,15 +80,15 @@ async def read_produto(produto_prod_id: int):
 # Operação Update
 @app.put("/produtos/{produto_prod_id}")
 async def update_produto(produto_prod_id: int, produto: Produto):
-    if produto_prod_id in db:
-        db[produto_prod_id] = produto
+    if produto_prod_id in db_produtos:
+        db_produtos[produto_prod_id] = produto
         return {"message": "Produto atualizado"}
     return {"message": "Produto não encontrado"}
 
 # Operação Delete
 @app.delete("/produtos/{produto_prod_id}")
 async def delete_produto(produto_prod_id: int):
-    if produto_prod_id in db:
-        del db[produto_prod_id]
+    if produto_prod_id in db_produtos:
+        del db_produtos[produto_prod_id]
         return {"message": "Produto excluído"}
     return {"message": "Produto não encontrado"}
