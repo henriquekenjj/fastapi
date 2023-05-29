@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Dict, Optional
 
 app = FastAPI()
@@ -18,7 +18,7 @@ app.add_middleware(
 
 # Modelo de dados
 class Usuario(BaseModel):
-    log_id: int = Field(default_factory=int, gt=0)
+    log_id: int
     log_nome: str
     log_email: str
     log_senha: str
@@ -31,7 +31,7 @@ db_usuarios: Dict[int, Usuario] = {}
 
 # Modelo de dados
 class Produto(BaseModel):
-    prod_id: int = Field(default_factory=int, gt=0)
+    prod_id: int
     prod_nome: str
     prod_descr: str
     prod_preco: float
