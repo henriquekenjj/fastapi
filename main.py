@@ -61,7 +61,7 @@ async def read_usuario(usuario_log_id: int):
     return {"message": "Usuário não encontrado"}
 
 # Operação Read all
-@app.get("/usuarios/all")
+@app.get("/usuarios/")
 async def read_all_usuarios():
     return list(db_usuarios.values())
 
