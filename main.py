@@ -63,7 +63,7 @@ async def read_usuario(usuario_log_id: int):
 # Operação Read all
 @app.get("/usuarios/all")
 async def read_all_usuarios():
-    return db_usuarios.values()
+    return list(db_usuarios.values())
 
 # Operação Update
 @app.put("/usuarios/{usuario_log_id}")
